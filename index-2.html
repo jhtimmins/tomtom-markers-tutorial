@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html class="use-all-space">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="UTF-8" />
+    <title>LA Coffee Map</title>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <!-- Replace version in the URL with desired library version -->
+    <link rel="stylesheet" type="text/css" href="assets/css/index.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/<version>/maps/maps.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/<version>/maps/css-styles/poi.css"
+    />
+    <style>
+      #map {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <!-- Replace version in the URL with desired library version -->
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/<version>/maps/maps-web.min.js"></script>
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/<version>/services/services-web.min.js"></script>
+    <script
+      data-showable
+      type="text/javascript"
+      src="assets/js/search-marker.js"
+    ></script>
+    <script
+      data-showable
+      type="text/javascript"
+      src="assets/js/search-markers-manager.js"
+    ></script>
+    <script>
+      var center = [-118.45202, 34.02873];
+      tt.setProductInfo("LA Coffee Map", "1.0");
+      var map = tt.map({
+        key: "<your-api-key>",
+        container: "map",
+        style: "tomtom://vector/1/basic-main",
+        center: center,
+      });
+      tt.services
+        .categorySearch({
+          key: "<your-api-key>",
+          query: "coffee shop",
+          center: center,
+          radius: 10000,
+          limit: 50,
+        })
+        .go()
+        .then((response) => console.log(response));
+    </script>
+  </body>
+</html>
